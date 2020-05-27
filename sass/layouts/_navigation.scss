@@ -1,0 +1,206 @@
+.navigation {
+
+    &__checkbox {
+        display: none;
+    }
+
+    &__button {
+        // h & w should be slightly higher than background, coz it shud not be visible
+        height: 7rem;
+        width: 7rem;
+        border-radius: 50%;
+        background-color: $color-white;
+        position: fixed;
+        top: 6rem;
+        right: 6rem;
+        z-index: 2000;
+        text-align: center;
+        cursor: pointer;
+
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+
+    }
+
+    &__background {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        position: fixed;
+        top: 6.5rem;
+        right: 6.5rem;
+        z-index: 1000;
+
+        // transform: scale(70);
+
+        transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1);
+        // cubic bezier is a cutom timing function derived from other websites
+
+        @include respond(tab-port) {
+            top: 4.5rem;
+            right: 4.5rem;
+        }
+
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 3.5rem;
+        }
+
+    }
+
+    &__nav {
+        // __nav is huge element used to center the ul
+        position: fixed;
+        top: 0;
+        left: 0;
+        // width: 100%; for the animation purpose, it is made as 0
+        width: 0;
+        height: 100vh;
+        z-index: 1500;
+
+        opacity: 0;
+        // eventhough opacity is 0, still links are there, cursor pointer will appear.
+
+        transition: all .8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        // cubic bezier is a cutom timing function derived from other websites
+    }
+
+    &__list {
+        list-style-type: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%;
+    }
+
+    &__item {
+        margin: 1rem;
+    }
+
+    &__link {
+
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 300;
+            color: $color-white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            background-image: linear-gradient(120deg, transparent 0%, transparent 50%, $color-white 50%);
+
+            background-size: 240%;
+            // making the bg-size as 240%, you are zooming out the background, it becomes big.
+            transition: all .4s;
+
+            span {
+                margin-right: 1.5rem;
+                display: inline-block;
+            }
+
+        }
+
+        &:hover,
+        &:active {
+            // U r shifting the whole backgrd to left by using bg-position
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+
+
+        }
+    }
+
+    // FUNCTIONALITY
+    
+    // here we are using ~ general sibling selector and :checked pseudo class
+    &__checkbox:checked ~ &__background {
+        transform: scale(70);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        opacity: 1;
+        width: 100%; 
+    }
+
+    // ICON
+
+    &__icon {
+        position: relative;
+
+        // to place it visually at center
+        margin-top: 3.5rem;
+
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-grey-dark-3;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+
+        &::before {
+            top: -.8rem;
+        }
+
+        &::after {
+            top: .8rem;
+        }
+
+    }
+
+    // SLIGHT HOVER EFFECT OF 3 LINES
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+
+    //3 LINES AS CROSS EFFECT
+    // we use :checked pseudo class and '+' adjacent sibling selector
+
+    &__checkbox:checked + &__button &__icon {
+        background-color: transparent;
+    }
+
+    &__checkbox:checked + &__button &__icon::before {
+        top:0;
+        // transform: rotate(45deg); to get a more dramatic effect we change 45deg to 180-45=135deg
+        transform: rotate(135deg);
+    }
+
+    &__checkbox:checked + &__button &__icon::after {
+        top:0;
+        // transform: rotate(-45deg); to get a more dramatic effect we change 45deg to 180-45=135deg
+        transform: rotate(-135deg);
+        
+        
+    }
+
+}
+
+// transform-origin: ; is a CSS property that describes where the transformation happens
+// default = center, hence any object rotates about its center. we can change it to right, left, top etc. 
+

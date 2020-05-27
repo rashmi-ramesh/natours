@@ -1,0 +1,53 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // this defines what 1rem is for this project i.e. 1rem=10px (our choice to take 10px) in percentage, this a basis for entire project
+  font-size: 62.5%;
+
+  // @include respond(phone) {
+  //   font-size: 50%;  same as tab-port, no need to mention
+  // }
+
+
+  /* as it is a desktop first website (we r using a 'max-width') so we have to design higher media queries first & then think about lower media queries, so the order is from HIGHER MQ to LOWER MQ */
+
+  /* as it is a mobile first website (we r using a 'min-width') so we have to design lower media queries first & then think about higher media queries, so the order is from LOWER MQ to HIGHER MQ */
+
+  @include respond(tab-land) {
+    font-size: 56.25%; //1rem=9px , 9/16=56.25%
+  }
+
+  @include respond(tab-port) {
+    font-size: 50%; //1rem=8px , 8/16=50%
+  }
+
+  
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1rem=12px , 12/16=75%
+  }
+  
+}
+
+body {
+  box-sizing: border-box;
+  padding: 3rem;
+
+  @include respond(tab-port) {
+    padding: 0;
+  }
+
+}
+
+/* for stying the selection on the browser, we use ::selection pseudo element */
+
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}

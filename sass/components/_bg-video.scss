@@ -1,0 +1,20 @@
+.bg-video {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .15;
+    z-index: -10;
+    overflow: hidden;
+
+    &__content {
+        width: 100%;
+        height: 100%;
+
+        // same as background-size:cover but for HTML elements like img, video etc, but width & height has to be specified.
+        // cover - maintains aspect ratio of video/img
+        // fill - doesnot maintain aspect ratio of video/img
+        object-fit: cover;
+    }
+}

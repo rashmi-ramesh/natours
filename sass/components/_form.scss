@@ -1,0 +1,135 @@
+.form {
+
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+        
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        font-family: inherit;
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: .2rem;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: .3rem solid transparent;
+        width: 90%;
+
+        // by displaying as block, you create a line-break
+        display: block;
+        transition: all .3s;
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
+
+        // :focus is a pseudo-class
+        &:focus {
+            outline: none;
+            border-bottom: .3rem solid $color-primary;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+        }
+
+        // :invalid is a psuedo-class
+        &:focus:invalid {
+            border-bottom: .3rem solid $color-secondary-dark;
+        }
+        
+
+        // ::-webkit-input-placeholder is a pseudo-element
+        &::-webkit-input-placeholder {
+            color: $color-grey-dark-2;
+        }
+
+    }
+
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        display: block;
+        // so that the margins are applied
+        margin-left: 2rem;
+        margin-top: .7rem;
+        transition: all .3s;
+
+    }
+
+    // :placeholder-shown is a pseudo class, meaning when placeholder is seen
+    // + means only adjacent sibling selector
+    // ~ means any sibling selector
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-4rem);
+    }
+
+    // RADIO BUTTON
+
+    &__radio-group {
+        width: 49%;
+        display: inline-block;
+        // to make stack side by side
+
+        @include respond(tab-port) {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__radio-input {
+        display: none;
+        // to hide the browser radio buttons
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 5rem;
+    }
+
+    &__radio-button {
+        display: inline-block;
+        height: 3rem;
+        width: 3rem;
+        border: .5rem solid $color-primary;
+        border-radius: 50%;
+        position: absolute;
+        top: -.4rem;
+        left: 0;
+
+        // ::after class for button dot
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            background-color: $color-primary;
+            border-radius: 50%;
+            position: absolute;
+            // parent is in position=absolute which is fine, need not be relative
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            // to make them invisible in the beginning
+            opacity: 0;
+            transition: opacity .2s;
+
+        }
+
+       
+    }
+
+    // :checked = pseudo class used for radio buttons & check boxes
+    // ~ means any sibling selector, here even + can be used
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+
+ 
+}
+
+
